@@ -1,0 +1,53 @@
+-- create table fac_info (id int,name varchar,address varchar,subject varchar,year int);
+-- create table fac_feed (id int,feedback int);
+-- create table collegestd(name varchar,id int,year int)
+-- select * from fac_info;
+-- select * from fac_feed;
+
+
+-- create or replace function insert_fac(id1 int, name1 varchar, address1 varchar, subject1 varchar, year1 int) 
+-- returns void as 
+-- $$
+-- begin
+-- if not exists (select 1 from fac_info where id = id1) then
+-- insert into fac_info values (id1, name1, address1, subject1, year1);
+-- else
+-- raise notice ' % already exists ', id1;
+-- end if;
+-- end;
+-- $$
+-- language plpgsql;
+
+
+-- create or replace procedure facfeedback(id2 int, feedback2 int) as 
+-- $$
+-- declare
+-- id_exists boolean;
+-- begin
+-- select exists (select 1 from fac_info where id = id2) into id_exists;  
+-- if not id_exists then
+-- raise notice 'id does not exist';
+-- else
+-- id_exists := false;
+-- select exists (select 1 from fac_feed where id = id2) into id_exists;        
+-- if id_exists then
+-- update fac_feed set feedback = feedback2 where id = id2;
+-- else
+-- insert into fac_feed values(id2, feedback2);
+-- end if;
+-- end if;
+-- end;
+-- $$
+-- language plpgsql;
+
+
+
+
+
+-- querry for exam
+-- select * from fac_info;
+-- select * from fac_feed; 
+-- select insert_fac(3,'fgb','dfsfv','fvsfv',4)
+-- select insert_fac(6,'Rishab','south bopal','Java',2)
+-- call facfeedback(5,6);
+-- call facfeedback(500,6);
